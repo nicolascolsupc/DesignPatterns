@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     private int _score;
     public int Score => _score;
 
+    public event Action<int> OnScoreEvent; 
+
     private void Awake()
     {
         if (Instance == null)
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         _score += score;
+        
+        OnScoreEvent?.Invoke(_score);
+        
         Debug.Log($"Score: {_score}");
     }
 }
